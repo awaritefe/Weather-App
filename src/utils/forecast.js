@@ -20,6 +20,5 @@ const forecast = (longitude, latitude, callback) => {
     }
   });
 };
-// }`The weather is ${data.current.weather_descriptions[0]} and it is currently ${data.current.temperature} degrees. It feels like ${data.current.feelslike} degrees out.`
 
 module.exports = forecast;
