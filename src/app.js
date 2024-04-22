@@ -1,9 +1,13 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+const geocode = require("./utils/geocode");
+const forecast = require("./utils/forecast");
+
+const app = express();
+const PORT = process.env.PORT || 8000;
 
 // Define paths for Express config
-const app = express();
 const publicDirectoryPath = path.join(__dirname, "../public");
 const viewPath = path.join(__dirname, "../templates/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
@@ -15,8 +19,6 @@ hbs.registerPartials(partialsPath);
 
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath));
-
-const PORT = process.env.PORT || 8000;
 
 app.get("", (req, res) => {
   res.render("index", {
@@ -41,9 +43,6 @@ app.get("/help", (req, res) => {
 });
 
 app.get("/weather", (req, res) => {
-  const geocode = require("./utils/geocode");
-  const forecast = require("./utils/forecast");
-
   geocode(
     req.query.address,
     (error, { location, longtitute, latitude } = {}) => {
